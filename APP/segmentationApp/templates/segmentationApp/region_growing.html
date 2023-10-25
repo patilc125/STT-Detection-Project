@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}
+Results
+{% endblock title %}
+
+{% block content %}
+
+<style>
+  body{
+    background-color: #f8f8f891;
+}
+.text-center {
+    text-align: center;
+  }
+
+  .container {
+    height: 200px;
+    position: relative;
+    
+  }
+  
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #353231;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  }
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  .slidecontainer {
+width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+-webkit-appearance: none;  /* Override default CSS styles */
+appearance: none;
+width: 80%; /* Full-width */
+height: 25px; /* Specified height */
+background: #d3d3d3; /* Grey background */
+outline: none; /* Remove outline */
+opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+-webkit-transition: .2s; /* 0.2 seconds transition on hover */
+transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+opacity: 1; /* Fully shown on mouse-over */
+}
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+-webkit-appearance: none; /* Override default look */
+appearance: none;
+width: 25px; /* Set a specific slider handle width */
+height: 25px; /* Slider handle height */
+background: #353231; /* Green background */
+cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+width: 25px; /* Set a specific slider handle width */
+height: 25px; /* Slider handle height */
+background: #353231; /* Green background */
+cursor: pointer; /* Cursor on hover */
+}
+
+.slider-wrapper-inner {
+position: absolute;
+right: 0;
+}
+.cool {border-style: dashed; border-color: #ccc !important; border-radius: 20px !important;}
+.navbar {
+  width: 100%;
+  background-color: #555;
+  overflow: auto;
+}
+.navbar a {
+  float: left;
+  text-align: center;
+  padding: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Navbar links on mouse-over */
+.navbar a:hover {
+  background-color: #000;
+}
+
+/* Current/active navbar link */
+.active {
+  background-color: #04AA6D;
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #313131;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+p {
+
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+
+label{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+
+span{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+
+</style>
+
+<p style="font-size:30px"><strong>Click on the image to choose start point</strong></p>
+
+
+
+<div class="cool", style="vertical-align: middle">
+  {% for i in images %}
+  {% if i.upload %}
+  <a href='/region_growing/'>
+      <img ismap src="{{ i.upload.url }}"  style="margin-left: 30px; margin-top:10px; margin-bottom: 10px;" alt="original"/> </a>
+    
+  {% endif %}
+  {% endfor %}
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}
+Results
+{% endblock title %}
+
+{% block content %}
+
+<style>
+  body{
+    background-color: #f8f8f891;
+}
+
+.dz {
+    border: dashed !important;
+    border-color: #ccc !important;
+    border-radius: 10px !important;
+}
+p.dashed {border-style: dashed; border-color: #ccc !important; border-radius: 10px !important;}
+
+.dz:hover{
+    background-color: aliceblue  !important;
+}
+.text-center {
+    text-align: center;
+  }
+
+  .container {
+    height: 200px;
+    position: relative;
+    
+  }
+  
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #353231;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  }
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+ 
+.cool {border-style: dashed; border-color: #ccc !important; border-radius: 1px !important;}
+
+input[type=text] {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  transition: width 0.4s ease-in-out;
+
+
+  padding: 12px 20px;
+  margin: 8px 0;
+}
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: #313131;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+p {
+
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+
+label{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+
+span{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+.column{
+  float: left;
+  width: 50%;
+  padding: 10px;
+  
+}
+
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+img {
+  border-style: dashed; border-color: #ccc !important; 
+}
+</style>
+
+
+
+<div class="row" >
+  <div class="column" style="width: 75%; float: left;  border-right:1px solid black; text-align: center;" >
+   
+    
+    <p style="font-size:30px;text-align: center;"><strong>Click on the image and choose start point</strong></p>
+    <div style="text-align: center;">
+    <label><strong>Start Point (X,Y):   </strong></label> (<label for="x"> {{x}}</label>,<label for="y">{{y}}</label>) <label><strong>Value: </strong></label> <label for="value">{{value}}</label>
+  </div>
+      {% for i in images %}
+      {% if i.upload %}
+      <a href='/region_growing/'>
+          <img ismap src="{{ i.upload.url }}"  style="margin-left: 30px; margin-top:10px; margin-bottom: 10px;" alt="original"/> </a>
+        
+      {% endif %}
+      {% endfor %}
+ 
+   
+  </div>
+  <div class="column" style="width: 25%;">
+    <p style="font-size:30px"><strong>Other parameters for region growing:</strong></p>
+    {% for message in messages %}
+    <div class="container-fluid p-0">
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+
+    <form action="/region_growing_parameters/" style="text-align: center;">
+
+    
+      <label for="lower">Lower value:</label>
+      <br><input type="text" id="lower" name="lower" placeholder="0-255" ><br><br>
+      <label for="upper">Upper value:</label>
+      <br><input type="text" id="upper" name="upper" placeholder="0-255" ><br><br>
+      <label for="multiplier">Multiplier value:</label>
+      <br><input type="text" id="multiplier" name="multiplier" placeholder="0-10" ><br><br>
+      <button name="submit" class="button" style="vertical-align: middle"><span>Segment </span></button>
+  
+      <input type="hidden" id="x" name="x" value="{{x}}"><br><br>
+      <input type="hidden" id="y" name="y" value="{{y}}"><br><br>
+    </form>
+
+
+  </div>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

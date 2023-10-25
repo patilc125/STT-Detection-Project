@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}
+upload now
+{% endblock title %}
+
+{% block content %}
+<form action="upload/" method="POST" class="dropzone dz" id="my-dropzone">
+    {% csrf_token %}
+    <div class="fallback">
+      <input name="file" type="file" multiple />
+    </div>
+  </form>
+  <style>
+    .container {
+      height: 200px;
+      position: relative;
+      
+    }
+    
+    .vertical-center {
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+    </style>
+    <style>
+      .button {
+        display: inline-block;
+        border-radius: 4px;
+        background-color: #353231;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 28px;
+        padding: 20px;
+        width: 200px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+      }
+      
+      .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+      
+      .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
+      
+      .button:hover span {
+        padding-right: 25px;
+      }
+      
+      .button:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+      .slidecontainer {
+    width: 100%; /* Width of the outside container */
+  }
+  
+  /* The slider itself */
+  .slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 80%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+  
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #353231; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #353231; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+  }
+
+.slider-wrapper-inner {
+    position: absolute;
+    right: 0;
+}
+      </style>
+ 
+<p></p>
+
+
+
+<p><b>Segmentation methods:</b></p>
+ 
+  
+  <input type="radio" id="unet" name="methods" value="unet">
+  <label for="unet">U-Net</label><br>
+  <input type="radio" id="thresholding" name="methods" value="thresholding">
+  <label for="thresholding">Thresholding</label><br>
+  <input type="radio" id="region_growing" name="methods" value="region_growing">
+  <label for="region_growing">Region Growing</label><br>
+
+  <p></p>
+
+  <div class="slidecontainer" style="display: flex; justify-content: flex-end">
+    <input type="range" min="1" max="100" value="50" class="slider" id="thresholdingSlider">
+    <label for="thresholdingSlider">Threshold Value</label><br>
+  </div>
+  
+
+
+<<<<<<< HEAD
+
+=======
+>>>>>>> baea435aa2783c6d30b914df0154dc3f570bb652
+  <div class="text-center">
+    <form action="/segment/">
+        <button class="button" style="vertical-align:middle"><span>Segment </span></button>
+    </form>
+  </div>
+<<<<<<< HEAD
+  
+  <div>
+    {% for i in images %}
+    <img src="{{ i.upload.url }}" width="500px" alt="original"/>
+    {% endfor %}
+  </div>
+
+  
+
+=======
+>>>>>>> baea435aa2783c6d30b914df0154dc3f570bb652
+    
+{% endblock content %}

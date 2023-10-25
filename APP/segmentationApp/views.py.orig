@@ -1,0 +1,124 @@
+from django.shortcuts import render
+from django.views.generic import TemplateView
+from django.views.generic import DetailView
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from .models import segmentationApp
+import os
+
+
+from .migrationFromFlask.api import Api
+<<<<<<< HEAD
+from .segmentationMethods.thresholding import threshold
+from .segmentationMethods.regionGrowing import regionGrowing
+=======
+from .SegmentationMethods.thresholding import Thresholding
+
+import mimetypes
+
+
+>>>>>>> ae5220ae79a257696507b6d35da9a9a128604024
+
+# Create your views here.
+
+class MainView(TemplateView):
+    template_name = 'segmentationApp/main.html'
+
+
+def file_upload_view(request):
+    print(request.FILES)
+    
+    if request.method == 'POST':
+        my_file = request.FILES.get('file')
+        (prefix, suffix) = str(my_file).split('.')
+      
+        segmentationApp.objects.all().delete()
+        segmentationApp.objects.create(upload=my_file, segmentation="predicted/"+prefix+"_predicted."+suffix)
+<<<<<<< HEAD
+        return HttpResponseRedirect("/upload/")
+
+    if request.method == 'GET':
+        images = segmentationApp.objects.all()
+        print(images[0])
+        return render(request, 'segmentationApp/main.html',{'images' : images})
+
+    return JsonResponse({'post':'false'})
+
+def file_segment_view(request):
+    wybieranieFunkcji = 0
+    if (wybieranieFunkcji == 0):
+        threshold(".\\media\\images",".\\media\\predicted", 50)
+    if (wybieranieFunkcji == 1):
+        api = Api()
+        api.call(folder=".\\media\\images",odp=".\\media\\predicted")
+    if (wybieranieFunkcji==2):
+        regionGrowing(".\\media\\images",".\\media\\predicted", (0,0),100, 200)
+=======
+        
+        return HttpResponse("")
+        #return HttpResponseRedirect("/upload/")
+    # if request.method == 'GET':
+    #     images = segmentationApp.objects.all()
+    #     print(images)
+    #     return render(request, 'segmentationApp/main.html',{'images' : images})
+    return JsonResponse({'post':'false'})
+
+def file_segment_view(request):
+
+        method=request.POST.get('methods')
+        if method == 'U-Net':
+            api = Api()
+            api.call(folder=".\\media\\images",odp=".\\media\\predicted")
+            images = segmentationApp.objects.all()
+            return render(request, 'segmentationApp/segment.html',{'images' : images,'method':method})
+        elif method=='Adaptive Gaussian Thresholding':
+            thresholding=Thresholding()
+            thresholding.call(folder=".\\media\\images",odp=".\\media\\predicted")
+            images = segmentationApp.objects.all()
+            return render(request, 'segmentationApp/segment.html',{'images' : images,'method':method})
+
+        elif method=="Region Growing":
+            images = segmentationApp.objects.all()
+            return render(request, 'segmentationApp/region_growing.html',{'images' : images,'method':method})
+
+
+        else:
+            return HttpResponse("Ta metoda nie została jeszcze zaimplementowana")
+
+
+def start_region_growing(request):
+    C=request.META.get('QUERY_STRING')
+    (cx,cy)=C.split(',')
+    # map was clicked at cx,cy coordinates
+    x=int(cx)
+    y=int(cy)
+
+>>>>>>> ae5220ae79a257696507b6d35da9a9a128604024
+    images = segmentationApp.objects.all()
+    method="Region Growing"
+    return render(request, 'segmentationApp/region_growing.html',{'images' : images,'method':method,'x':x,'y':y})
+
+
+
+def download_file(request):
+    # fill these variables with real values
+    fl_path = '/file/path'
+    filename = 'downloaded_file_name.extension'
+
+    fl = open(fl_path, 'r')
+    mime_type, _ = mimetypes.guess_type(fl_path)
+    response = HttpResponse(fl, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response
+
+    
+# def display_images(request):
+  
+#     if request.method == 'GET':
+  
+#         # getting all the objects of hotel.
+#         return render((request, 'segmentationApp/segment.html',
+#                      {'images' : images}))
+    
+
+

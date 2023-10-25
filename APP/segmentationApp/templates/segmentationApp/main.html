@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block title %}
+upload now
+{% endblock title %}
+
+{% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body{
+    background-image: url(/media/example3.png);
+    background-repeat: no-repeat;
+    background-size: 1000px 190px;
+    background-position: center 100px;
+    background-color: #f8f8f891;
+    opacity: 1; 
+}
+
+.dz {
+  opacity: 0.92;
+    border: dashed !important;
+    border-color: #ccc !important;
+    border-radius: 10px !important;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px
+}
+p.dashed {border-style: dashed; border-color: #ccc !important; border-radius: 10px !important;}
+
+.dz:hover{
+    background-color: aliceblue  !important;
+}
+.text-center {
+    text-align: center;
+  }
+
+  .container {
+    height: 200px;
+    position: relative;
+    
+  }
+  
+  .vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #353231;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 10px;
+    width: 170px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+  }
+
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    transition: 0.5s;
+    
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  .slidecontainer {
+width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+-webkit-appearance: none;  /* Override default CSS styles */
+appearance: none;
+width: 80%; /* Full-width */
+height: 25px; /* Specified height */
+background: #d3d3d3; /* Grey background */
+outline: none; /* Remove outline */
+opacity: 0.99; /* Set transparency (for mouse-over effects on hover) */
+-webkit-transition: .2s; /* 0.2 seconds transition on hover */
+transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+opacity: 1; /* Fully shown on mouse-over */
+}
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+-webkit-appearance: none; /* Override default look */
+appearance: none;
+width: 25px; /* Set a specific slider handle width */
+height: 25px; /* Slider handle height */
+background: #353231; /* Green background */
+cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+width: 25px; /* Set a specific slider handle width */
+height: 25px; /* Slider handle height */
+background: #353231; /* Green background */
+cursor: pointer; /* Cursor on hover */
+}
+
+.slider-wrapper-inner {
+position: absolute;
+right: 0;
+}
+
+
+
+.range-slider {
+  margin: 60px 0 0 0%;
+  -webkit-appearance: none;  /* Override default CSS styles */
+appearance: none;
+width: 80%; /* Full-width */
+height: 25px; /* Specified height */
+background: #d3d3d3; /* Grey background */
+outline: none; /* Remove outline */
+opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+-webkit-transition: .2s; /* 0.2 seconds transition on hover */
+transition: opacity .2s;
+}
+.range-slider__value {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  color: #1d1d1d;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-left: 8px;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer { 
+  border: 0; 
+}
+.cool {border-style: dashed; border-color: #ccc !important; border-radius: 20px !important;}
+
+
+p {
+
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+
+label{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+
+span{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px
+}
+
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  opacity: 0.99;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+  .header {
+  padding: 5px;
+  text-align: center;
+  color: #353231;
+  font-size: 10px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+}
+
+</style>
+
+<div class="header">
+ 
+
+  <h1>Load image and segment Soft Tissue Tumor</h1><br></br>
+
+</div>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<body>
+
+<form action="upload/" method="POST" class="dropzone dz" id="my-dropzone">
+    {% csrf_token %}
+    <div class="fallback">
+      <input name="file" type="file" multiple  />
+    </div>
+  </form>
+ 
+<p></p>
+
+
+<div class="row">
+  <div class="column" style="width: 20%;">
+    <div class="dropzone dz">
+    <p><b>Segmentation methods:</b></p>
+
+    {% for message in messages %}
+    <div class="container-fluid p-0">
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+<form name="methods" action="/segment/" method="POST" onsubmit="">
+  {% csrf_token %}
+
+  <input type="radio" id="unet" name="methods" value="U-Net">
+  <label for="unet" title="U-Net is a convolutional neural network, that was prepared to detect automatically soft tissue tumors">U-Net</label><br>
+  <input type="radio" id="thresholding" name="methods" value="Thresholding">
+  <label for="thresholding" title="Thresholding is a method that uses one threshold value, to split pixels into two groups (under and over value), which represent background and tumor">Thresholding</label><br>
+  
+  <button name="submit" class="button" style="text-align: center;"><span>Segment </span></button>
+
+  </div>
+
+  </div>
+  <div class="column" style="width: 80%;">
+    <br></br>
+  <br></br>
+  <br></br>
+    <div class="slidecontainer" style="display: none; justify-content: flex-end; text-align: center;" id="divSlider">
+      <div class="dropzone dz">
+
+      <input name="slider" type="range" min="1" max="255" value="125" class="slider" step="1" id="slider">
+      <span class="range-slider__value">0</span>  <br></br>
+      <label for="slider" style="text-align: center; margin-top: -20px;">Threshold value</label>
+      </div>
+    </div>
+ 
+  </div>
+  
+
+ 
+  
+</form>
+
+</div>
+
+
+
+  <p></p>
+</body>
+
+
+ 
+{% endblock content %}

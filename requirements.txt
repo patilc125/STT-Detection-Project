@@ -1,0 +1,6 @@
+Django
+opencv-python
+tensorboardX
+torchsummary
+SimpleITK
+torch
